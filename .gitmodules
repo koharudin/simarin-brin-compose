@@ -1,0 +1,6 @@
+[submodule "fe"]
+	path = fe
+	url = https://github.com/koharudin/simarin-brin.git
+[submodule "be"]
+	path = be
+	url = https://gitlab.brin.go.id/brinrockstar/simarinv2-be.git
