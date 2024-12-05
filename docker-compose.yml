@@ -1,0 +1,24 @@
+services:
+  fe:
+    build:
+      context: fe 
+      dockerfile: Dockerfile-dev 
+    volumes:
+        - ./fe:/app
+    tty: true
+    ports:
+      - 81:3000
+    environment:
+      - REACT_APP_API_SERVER=http://localhost:82/api
+      - NODE_ENV=development 
+      - WATCHPACK_POLLING=true
+    command: ["yarn","start"]
+  be:
+    build: 
+      context: be 
+      dockerfile: Dockerfile-dev
+    ports:
+      - 82:80
+    volumes:
+      - ./be:/var/www
+      - ./be/public:/var/www/html
