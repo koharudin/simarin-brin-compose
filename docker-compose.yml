@@ -15,8 +15,8 @@ services:
     command: ["yarn","start"]
   be:
     build: 
-      context: be 
-      dockerfile: Dockerfile-dev
+      context: . 
+      dockerfile: Dockerfile-be-dev
     ports:
       - 82:80
     volumes:

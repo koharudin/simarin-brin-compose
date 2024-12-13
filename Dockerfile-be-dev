@@ -1,0 +1,31 @@
+FROM php:8.2.1-apache
+
+
+ENV APACHE_DOCUMENT_ROOT=/var/www/html
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+RUN sed -i 's|ErrorLog.*|ErrorLog /dev/stderr|' /etc/apache2/apache2.conf \
+    && sed -i 's|CustomLog.*|CustomLog /dev/stdout combined|' /etc/apache2/apache2.conf
+
+RUN a2enmod rewrite
+RUN apt-get update && apt-get install -y libpq-dev && docker-php-ext-install pdo pdo_pgsql pgsql
+
+RUN apt-get -y install git 
+RUN apt-get install -y \
+    libzip-dev \
+    zlib1g-dev \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    zip \
+    && docker-php-ext-install zip gd
+
+COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+
+RUN mkdir -p /var/www/html /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/vendor
+# Atur kepemilikan dan izin direktori dan file yang digunakan oleh web server
+# Pastikan www-data memiliki izin untuk mengakses dan menulis ke direktori yang dibutuhkan
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/vendor
+
+
