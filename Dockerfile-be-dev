@@ -22,10 +22,8 @@ RUN apt-get install -y \
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
-RUN mkdir -p /var/www/html /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/vendor
+RUN mkdir -p /var/www/html /var/www/storage /var/www/bootstrap/cache /var/www/vendor
 # Atur kepemilikan dan izin direktori dan file yang digunakan oleh web server
 # Pastikan www-data memiliki izin untuk mengakses dan menulis ke direktori yang dibutuhkan
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/vendor
-
-
+RUN chown -R www-data:www-data /var/www  \
+    && chmod -R 775 /var/www/storage /var/www/bootstrap/cache /var/www/vendor
