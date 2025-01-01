@@ -1,6 +1,9 @@
-[submodule "fe"]
-	path = fe
+[submodule "brin_fe"]
+	path = brin_fe
 	url = https://gitlab.brin.go.id/brinrockstar/simarinv2-fe.git
-[submodule "be"]
-	path = be
+[submodule "brin_be"]
+	path = brin_be
+	url = https://gitlab.brin.go.id/brinrockstar/simarinv2-be.git
+[submodule "dokumentasi"]
+	path = dokumentasi
 	url = https://gitlab.brin.go.id/brinrockstar/simarinv2-be.git
